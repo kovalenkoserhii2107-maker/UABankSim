@@ -20,11 +20,17 @@ UABankSim — глибокий event-driven симулятор комерцій�
 
 ## Швидкий старт
 
+Потрібен Node.js 20.10 або новіший.
+
 ```bash
+git clone https://github.com/kovalenkoserhii2107-maker/UABankSim.git
+cd UABankSim
 npm install
-npm run build
-npm run sim -- --scenario sandbox --weeks 96
+npm run sim
 ```
+
+`npm run sim` збирає проєкт і одразу проганяє сценарій за замовчуванням
+(пісочниця, 96 тижнів). Збірка інкрементальна, тому наступні запуски миттєві.
 
 Корисні прапорці:
 

@@ -21,7 +21,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint .",
-    "sim": "node --experimental-strip-types packages/cli/src/main.ts"
+    "sim": "npm run build --silent && node packages/cli/dist/main.js"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
