@@ -1,0 +1,34 @@
+{
+  "name": "uabanksim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Event-driven simulator of a Ukrainian commercial bank",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/data",
+    "packages/modules",
+    "packages/cli"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "typecheck": "tsc --build --force",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "sim": "node --experimental-strip-types packages/cli/src/main.ts"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/node": "^22.8.0",
+    "eslint": "^9.13.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.11.0",
+    "vitest": "^3.2.4"
+  }
+}

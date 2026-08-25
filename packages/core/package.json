@@ -1,0 +1,11 @@
+{
+  "name": "@uabanksim/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Simulation kernel: money, general ledger, event bus, time engine, prudential ratios",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": "./dist/index.js" },
+  "scripts": { "build": "tsc --build" }
+}

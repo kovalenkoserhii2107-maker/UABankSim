@@ -1,0 +1,14 @@
+{
+  "name": "@uabanksim/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Console runner for UABankSim scenarios",
+  "bin": { "uabanksim": "./dist/main.js" },
+  "scripts": { "build": "tsc --build" },
+  "dependencies": {
+    "@uabanksim/core": "0.1.0",
+    "@uabanksim/data": "0.1.0",
+    "@uabanksim/modules": "0.1.0"
+  }
+}
