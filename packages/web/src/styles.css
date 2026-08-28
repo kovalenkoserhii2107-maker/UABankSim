@@ -1,0 +1,345 @@
+/*
+ * Оформлення інтерфейсу.
+ *
+ * Палітра графіків — валідована категорійна палітра (перевірена на розрізнення
+ * при дальтонізмі), решта кольорів — нейтральна шкала поверхонь і чорнила.
+ * Темна тема — окремо підібрані кроки тих самих відтінків, а не автоматична
+ * інверсія: інвертований графік завжди виглядає брудно.
+ */
+
+:root {
+  color-scheme: light;
+  --surface-1: #fcfcfb;
+  --surface-2: #f9f9f7;
+  --surface-3: #f2f2ee;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --border-strong: rgba(11, 11, 11, 0.18);
+
+  --series-1: #2a78d6;
+  --series-2: #eb6834;
+  --series-3: #1baf7a;
+  --series-4: #eda100;
+  --series-7: #4a3aa7;
+
+  --status-good: #0ca30c;
+  --status-warning: #fab219;
+  --status-serious: #ec835a;
+  --status-critical: #d03b3b;
+
+  --radius: 10px;
+  --font: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #0d0d0d;
+    --surface-3: #232322;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.2);
+    --series-1: #3987e5;
+    --series-2: #d95926;
+    --series-3: #199e70;
+    --series-4: #c98500;
+    --series-7: #9085e9;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --surface-2: #0d0d0d;
+  --surface-3: #232322;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --series-1: #3987e5;
+  --series-2: #d95926;
+  --series-3: #199e70;
+  --series-4: #c98500;
+  --series-7: #9085e9;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--surface-2);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+#app { min-height: 100vh; }
+
+/* --- Екран вибору сценарію --------------------------------------------- */
+
+.intro {
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 48px 20px 64px;
+}
+
+.intro__brand {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.intro h1 {
+  font-size: 34px;
+  margin: 8px 0 10px;
+  letter-spacing: -0.02em;
+}
+
+.intro__lede {
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin: 0 0 32px;
+}
+
+.scenarios {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+.scenario {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  gap: 10px;
+  padding: 18px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: border-color 0.15s, transform 0.15s;
+}
+
+.scenario:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+.scenario[aria-pressed='true'] { border-color: var(--series-1); box-shadow: inset 0 0 0 1px var(--series-1); }
+
+.scenario__year { font-size: 12px; color: var(--text-muted); letter-spacing: 0.06em; }
+.scenario__title { font-size: 17px; font-weight: 600; }
+.scenario__summary { color: var(--text-secondary); font-size: 13px; }
+.scenario__brief { margin: 4px 0 0; padding-left: 18px; color: var(--text-secondary); font-size: 12.5px; }
+.scenario__brief li { margin-bottom: 4px; }
+
+.intro__start { display: flex; align-items: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
+
+/* --- Загальні елементи керування ---------------------------------------- */
+
+button.primary,
+button.ghost {
+  font: inherit;
+  border-radius: 8px;
+  padding: 9px 16px;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+button.primary { background: var(--series-1); color: #fff; font-weight: 600; }
+button.primary:hover { filter: brightness(1.08); }
+button.primary:disabled { opacity: 0.45; cursor: not-allowed; filter: none; }
+
+button.ghost { background: var(--surface-1); color: var(--text-primary); border-color: var(--border-strong); }
+button.ghost:hover { background: var(--surface-3); }
+button.ghost:disabled { opacity: 0.45; cursor: not-allowed; }
+
+label.toggle { display: inline-flex; align-items: center; gap: 8px; color: var(--text-secondary); }
+
+/* --- Дашборд ------------------------------------------------------------ */
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 12px 20px;
+  background: var(--surface-1);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.topbar__bank { font-weight: 600; }
+.topbar__date { color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.topbar__macro { display: flex; gap: 14px; flex-wrap: wrap; margin-left: auto; }
+.topbar__actions { display: flex; gap: 8px; }
+
+.macro { font-size: 12.5px; color: var(--text-secondary); white-space: nowrap; }
+.macro b { color: var(--text-primary); font-variant-numeric: tabular-nums; font-weight: 600; }
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 18px;
+  padding: 18px 20px 48px;
+  max-width: 1440px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+@media (max-width: 1080px) {
+  .layout { grid-template-columns: minmax(0, 1fr); }
+}
+
+.panel {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+.panel__title {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 12px;
+}
+
+/* --- Плитки показників --------------------------------------------------- */
+
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 18px; }
+
+.tile {
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+}
+
+.tile__label { font-size: 12px; color: var(--text-muted); }
+.tile__value { font-size: 22px; font-weight: 600; letter-spacing: -0.01em; margin-top: 2px; }
+.tile__unit { font-size: 13px; color: var(--text-muted); font-weight: 400; margin-left: 3px; }
+.tile__note { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+.tile__note[data-tone='good'] { color: var(--status-good); }
+.tile__note[data-tone='bad'] { color: var(--status-critical); }
+
+/* --- Графіки ------------------------------------------------------------- */
+
+.charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 14px; }
+/* Підсумковий графік фінрезультату йде на всю ширину: він читається як висновок
+   під рядом операційних графіків, а не як четвертий рівний із ними. */
+.charts .chart--wide { grid-column: 1 / -1; }
+
+.chart { margin: 0; background: var(--surface-1); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 12px 6px; }
+.chart__head { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 6px; }
+.chart__title { font-size: 13px; font-weight: 600; }
+.chart__legend { display: flex; gap: 12px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); }
+.chart__legend-item { display: inline-flex; align-items: center; gap: 5px; }
+.chart__legend-item i, .chart__tip i { width: 9px; height: 9px; border-radius: 2px; display: inline-block; }
+
+.chart__canvas { position: relative; }
+.chart__svg { width: 100%; height: 190px; display: block; overflow: visible; }
+.chart__grid { stroke: var(--grid); stroke-width: 1; }
+.chart__zero, .chart__reference { stroke: var(--axis); stroke-width: 1; }
+.chart__reference { stroke-dasharray: 4 3; }
+.chart__reference-label { fill: var(--text-muted); font-size: 10px; font-family: var(--font); }
+.chart__tick { fill: var(--text-muted); font-size: 10px; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.chart__line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.chart__end { stroke: var(--surface-1); stroke-width: 2; }
+.chart__crosshair { stroke: var(--axis); stroke-width: 1; }
+.chart__bar:hover { filter: brightness(1.12); }
+
+.chart__tip {
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  background: var(--surface-1);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  padding: 7px 9px;
+  font-size: 12px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
+  z-index: 2;
+}
+.chart__tip b { display: block; margin-bottom: 4px; font-variant-numeric: tabular-nums; }
+.chart__tip span { display: flex; align-items: center; gap: 6px; }
+.chart__tip em { font-style: normal; margin-left: auto; padding-left: 12px; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+/* --- Важелі керування ---------------------------------------------------- */
+
+.lever { margin-bottom: 18px; }
+.lever:last-child { margin-bottom: 4px; }
+.lever__head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.lever__name { font-size: 13px; font-weight: 600; }
+.lever__value { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--series-1); }
+.lever__hint { font-size: 12px; color: var(--text-secondary); margin-top: 3px; }
+.lever input[type='range'] { width: 100%; margin: 8px 0 0; accent-color: var(--series-1); }
+
+/* --- Таблиці звітності --------------------------------------------------- */
+
+.tabs { display: flex; gap: 4px; margin-bottom: 12px; flex-wrap: wrap; }
+.tab {
+  font: inherit; font-size: 13px; padding: 6px 12px; border-radius: 7px; cursor: pointer;
+  background: transparent; border: 1px solid transparent; color: var(--text-secondary);
+}
+.tab:hover { background: var(--surface-3); }
+.tab[aria-selected='true'] { background: var(--surface-3); color: var(--text-primary); border-color: var(--border); font-weight: 600; }
+
+table.report { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.report td { padding: 5px 0; border-bottom: 1px solid var(--grid); }
+table.report td:last-child { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.report tr.total td { font-weight: 600; border-bottom: 1px solid var(--axis); }
+table.report tr.group td { padding-top: 14px; color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; border-bottom: none; }
+table.report tr.negative td:last-child { color: var(--status-critical); }
+
+.ratio-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--grid); font-size: 13px; }
+.ratio-row__name { flex: 1; }
+.ratio-row__value { font-variant-numeric: tabular-nums; font-weight: 600; }
+.ratio-row__limit { color: var(--text-muted); font-size: 12px; width: 74px; text-align: right; }
+
+.badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 20px; }
+.badge[data-tone='good'] { color: var(--status-good); background: color-mix(in srgb, var(--status-good) 14%, transparent); }
+.badge[data-tone='bad'] { color: var(--status-critical); background: color-mix(in srgb, var(--status-critical) 16%, transparent); }
+.badge[data-tone='warn'] { color: var(--status-serious); background: color-mix(in srgb, var(--status-warning) 22%, transparent); }
+
+/* --- Стрічка подій ------------------------------------------------------- */
+
+.feed { max-height: 420px; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+.feed li { display: flex; gap: 9px; padding: 7px 0; border-bottom: 1px solid var(--grid); font-size: 12.5px; }
+.feed li:last-child { border-bottom: none; }
+.feed__when { color: var(--text-muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.feed__text { color: var(--text-secondary); }
+.feed li[data-severity='critical'] .feed__text { color: var(--status-critical); }
+.feed li[data-severity='warning'] .feed__text { color: var(--status-serious); }
+.feed li[data-severity='success'] .feed__text { color: var(--status-good); }
+.feed__empty { color: var(--text-muted); font-size: 13px; }
+
+/* --- Кінець гри ---------------------------------------------------------- */
+
+.gameover {
+  border: 1px solid var(--status-critical);
+  background: color-mix(in srgb, var(--status-critical) 8%, var(--surface-1));
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  margin-bottom: 18px;
+}
+.gameover h2 { margin: 0 0 4px; font-size: 15px; color: var(--status-critical); }
+.gameover p { margin: 0; color: var(--text-secondary); font-size: 13px; }

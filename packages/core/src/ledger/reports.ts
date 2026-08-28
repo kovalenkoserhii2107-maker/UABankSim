@@ -302,6 +302,43 @@ export function buildPrudentialRatios(
   };
 }
 
+/**
+ * Людські назви статей звітності. Живуть поруч із визначенням самих статей, щоб
+ * консоль і веб-інтерфейс не розходились у формулюваннях.
+ */
+export const REPORT_LINE_TITLES: Readonly<Record<string, string>> = {
+  cash: 'Готівка в касах і банкоматах',
+  nostroNbu: 'Кореспондентський рахунок в НБУ',
+  mandatoryReserves: 'Обов’язкові резерви',
+  securities: 'Депсертифікати НБУ та ОВДП',
+  nostroBanks: 'Кореспондентські рахунки в банках',
+  interbankPlaced: 'Міжбанк розміщений',
+  loansRetail: 'Кредити фізичним особам',
+  loansCorporate: 'Кредити юридичним особам',
+  loanLossAllowance: 'Резерв під знецінення',
+  accruedIncome: 'Нараховані доходи',
+  fixedAssets: 'Основні засоби',
+  otherAssets: 'Інші активи',
+  currentAccountsRetail: 'Поточні рахунки фізосіб',
+  termDepositsRetail: 'Строкові вклади фізосіб',
+  currentAccountsCorporate: 'Поточні рахунки юросіб',
+  termDepositsCorporate: 'Строкові кошти юросіб',
+  interbankTaken: 'Міжбанк залучений',
+  nbuRefinancing: 'Рефінансування НБУ',
+  accruedExpense: 'Нараховані витрати',
+  payroll: 'Заборгованість із зарплати',
+  otherLiabilities: 'Інші зобов’язання',
+  shareCapital: 'Статутний капітал',
+  retainedEarnings: 'Нерозподілений прибуток',
+  currentYearResult: 'Фінансовий результат минулих періодів',
+  resultOfPeriod: 'Результат поточного періоду',
+};
+
+/** Назва статті для показу; невідомий ключ повертається як є. */
+export function reportLineTitle(line: string): string {
+  return REPORT_LINE_TITLES[line] ?? line;
+}
+
 /** Перевірка, що рахунок належить до звітної статті — використовується в тестах. */
 export function reportLineOf(code: string): string {
   return accountDefinition(code).reportLine;

@@ -1,0 +1,20 @@
+{
+  "name": "@uabanksim/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Web interface for UABankSim",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@uabanksim/core": "0.1.0",
+    "@uabanksim/data": "0.1.0",
+    "@uabanksim/modules": "0.1.0"
+  },
+  "devDependencies": {
+    "vite": "^6.0.7"
+  }
+}

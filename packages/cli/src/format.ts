@@ -2,44 +2,18 @@
 
 import {
   formatMoney,
+  reportLineTitle,
   type BalanceSheet,
   type IncomeStatement,
   type Money,
   type PrudentialRatios,
 } from '@uabanksim/core';
 
-const LINE_TITLES: Readonly<Record<string, string>> = {
-  cash: 'Готівка в касах і банкоматах',
-  nostroNbu: 'Коррахунок в НБУ',
-  mandatoryReserves: 'Обов’язкові резерви',
-  securities: 'Депсертифікати НБУ та ОВДП',
-  nostroBanks: 'Коррахунки в банках',
-  interbankPlaced: 'Міжбанк розміщений',
-  loansRetail: 'Кредити фізичним особам',
-  loansCorporate: 'Кредити юридичним особам',
-  loanLossAllowance: 'Резерв під знецінення',
-  accruedIncome: 'Нараховані доходи',
-  fixedAssets: 'Основні засоби',
-  otherAssets: 'Інші активи',
-  currentAccountsRetail: 'Поточні рахунки фізосіб',
-  termDepositsRetail: 'Строкові вклади фізосіб',
-  currentAccountsCorporate: 'Поточні рахунки юросіб',
-  termDepositsCorporate: 'Строкові кошти юросіб',
-  interbankTaken: 'Міжбанк залучений',
-  nbuRefinancing: 'Рефінансування НБУ',
-  accruedExpense: 'Нараховані витрати',
-  payroll: 'Заборгованість із зарплати',
-  otherLiabilities: 'Інші зобов’язання',
-  shareCapital: 'Статутний капітал',
-  retainedEarnings: 'Нерозподілений прибуток',
-  currentYearResult: 'Фінансовий результат минулих періодів',
-  resultOfPeriod: 'Результат поточного періоду',
-};
 
 const COLUMN = 42;
 
 function row(label: string, amount: Money): string {
-  const title = LINE_TITLES[label] ?? label;
+  const title = reportLineTitle(label);
   return `  ${title.padEnd(COLUMN)}${formatMoney(amount, { withCurrency: false }).padStart(20)}`;
 }
 
