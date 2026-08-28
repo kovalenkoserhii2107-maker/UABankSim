@@ -263,6 +263,9 @@ label.toggle { display: inline-flex; align-items: center; gap: 8px; color: var(-
 .chart__line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .chart__end { stroke: var(--surface-1); stroke-width: 2; }
 .chart__crosshair { stroke: var(--axis); stroke-width: 1; }
+/* Атрибут hidden браузер застосовує лише до HTML-елементів — для SVG правило
+   треба задати явно, інакше перехрестя лишається на графіку після відведення. */
+.chart__svg [hidden] { display: none; }
 .chart__bar:hover { filter: brightness(1.12); }
 
 .chart__tip {
