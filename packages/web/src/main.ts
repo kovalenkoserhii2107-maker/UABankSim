@@ -72,7 +72,28 @@ function renderIntro(): void {
       `<ul class="scenario__brief">${scenario.briefing.map((b) => `<li>${escapeHtml(b)}</li>`).join('')}</ul>`;
     card.addEventListener('click', () => {
       state.scenario = scenario.id;
-      renderIntro();
+      /**
+ * Запуск із межею помилки: якщо рушій кинув виняток, користувач має побачити
+ * причину, а не порожню сторінку. Мовчазний чорний екран — найгірший спосіб
+ * повідомити про збій.
+ */
+function boot(): void {
+  try {
+    renderIntro();
+  } catch (error) {
+    app.innerHTML = '';
+    const box = document.createElement('div');
+    box.className = 'fallback fallback--error';
+    box.innerHTML =
+      `<h1>Симулятор не запустився</h1>` +
+      `<p>Сталася помилка під час ініціалізації. Спробуйте оновити сторінку.</p>` +
+      `<pre>${escapeHtml(error instanceof Error ? `${error.name}: ${error.message}` : String(error))}</pre>`;
+    app.append(box);
+    throw error;
+  }
+}
+
+boot();
     });
     list.append(card);
   }
@@ -94,7 +115,28 @@ function renderIntro(): void {
 
 function renderDashboard(): void {
   const game = state.game;
-  if (!game) return renderIntro();
+  if (!game) return /**
+ * Запуск із межею помилки: якщо рушій кинув виняток, користувач має побачити
+ * причину, а не порожню сторінку. Мовчазний чорний екран — найгірший спосіб
+ * повідомити про збій.
+ */
+function boot(): void {
+  try {
+    renderIntro();
+  } catch (error) {
+    app.innerHTML = '';
+    const box = document.createElement('div');
+    box.className = 'fallback fallback--error';
+    box.innerHTML =
+      `<h1>Симулятор не запустився</h1>` +
+      `<p>Сталася помилка під час ініціалізації. Спробуйте оновити сторінку.</p>` +
+      `<pre>${escapeHtml(error instanceof Error ? `${error.name}: ${error.message}` : String(error))}</pre>`;
+    app.append(box);
+    throw error;
+  }
+}
+
+boot();
   const sim = game.simulation;
   const point = game.latest;
 
@@ -126,7 +168,28 @@ function renderDashboard(): void {
       button.addEventListener('click', () => {
         if (step === 'restart') {
           state.game = null;
-          return renderIntro();
+          return /**
+ * Запуск із межею помилки: якщо рушій кинув виняток, користувач має побачити
+ * причину, а не порожню сторінку. Мовчазний чорний екран — найгірший спосіб
+ * повідомити про збій.
+ */
+function boot(): void {
+  try {
+    renderIntro();
+  } catch (error) {
+    app.innerHTML = '';
+    const box = document.createElement('div');
+    box.className = 'fallback fallback--error';
+    box.innerHTML =
+      `<h1>Симулятор не запустився</h1>` +
+      `<p>Сталася помилка під час ініціалізації. Спробуйте оновити сторінку.</p>` +
+      `<pre>${escapeHtml(error instanceof Error ? `${error.name}: ${error.message}` : String(error))}</pre>`;
+    app.append(box);
+    throw error;
+  }
+}
+
+boot();
         }
         if (step === 'week') g.advanceWeek();
         if (step === 'month') g.advanceMonth();
@@ -465,4 +528,25 @@ function feedPanel(logs: readonly LogRecord[]): HTMLElement {
   return panel;
 }
 
-renderIntro();
+/**
+ * Запуск із межею помилки: якщо рушій кинув виняток, користувач має побачити
+ * причину, а не порожню сторінку. Мовчазний чорний екран — найгірший спосіб
+ * повідомити про збій.
+ */
+function boot(): void {
+  try {
+    renderIntro();
+  } catch (error) {
+    app.innerHTML = '';
+    const box = document.createElement('div');
+    box.className = 'fallback fallback--error';
+    box.innerHTML =
+      `<h1>Симулятор не запустився</h1>` +
+      `<p>Сталася помилка під час ініціалізації. Спробуйте оновити сторінку.</p>` +
+      `<pre>${escapeHtml(error instanceof Error ? `${error.name}: ${error.message}` : String(error))}</pre>`;
+    app.append(box);
+    throw error;
+  }
+}
+
+boot();

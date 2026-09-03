@@ -25,7 +25,8 @@
     "sim": "npm run build --silent && node packages/cli/dist/main.js",
     "web": "npm run build --silent && vite --config packages/web/vite.config.ts",
     "web:build": "npm run build --silent && vite build --config packages/web/vite.config.ts",
-    "web:smoke": "npm run web:build --silent && node packages/web/smoke.mjs dist-web dist-web/shots"
+    "web:smoke": "npm run web:build --silent && node packages/web/smoke.mjs dist-web dist-web/shots",
+    "web:bundle": "npm run web:build --silent && node packages/web/bundle.mjs dist-web dist-web/UABankSim.html"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

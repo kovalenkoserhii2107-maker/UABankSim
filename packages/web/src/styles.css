@@ -346,3 +346,18 @@ table.report tr.negative td:last-child { color: var(--status-critical); }
 }
 .gameover h2 { margin: 0 0 4px; font-size: 15px; color: var(--status-critical); }
 .gameover p { margin: 0; color: var(--text-secondary); font-size: 13px; }
+
+/* --- Запасний вміст ------------------------------------------------------ */
+
+/* Показується, доки скрипт не замінив вміст #app. Якщо скрипт так і не
+   виконався, це єдине, що побачить користувач, — тому блок має бути читабельним
+   без жодного JavaScript. */
+.fallback { max-width: 620px; margin: 0 auto; padding: 56px 20px; }
+.fallback h1 { font-size: 30px; margin: 0 0 12px; letter-spacing: -0.02em; }
+.fallback p { color: var(--text-secondary); margin: 0 0 10px; }
+.fallback ul { color: var(--text-secondary); padding-left: 20px; margin: 0 0 14px; }
+.fallback li { margin-bottom: 5px; }
+.fallback__hint { font-size: 13px; color: var(--text-muted); }
+.fallback--error { border: 1px solid var(--status-critical); border-radius: var(--radius); }
+.fallback--error h1 { color: var(--status-critical); font-size: 20px; }
+.fallback pre { white-space: pre-wrap; word-break: break-word; font-size: 12px; color: var(--text-muted); }
