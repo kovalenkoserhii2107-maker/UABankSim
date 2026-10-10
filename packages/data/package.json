@@ -1,0 +1,19 @@
+{
+  "name": "@uabanksim/data",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Historical NBU macro series and scenario definitions",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "dependencies": {
+    "@uabanksim/core": "0.1.0",
+    "@uabanksim/modules": "0.1.0"
+  }
+}

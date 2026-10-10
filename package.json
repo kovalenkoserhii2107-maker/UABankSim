@@ -1,0 +1,41 @@
+{
+  "name": "uabanksim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Event-driven simulator of a Ukrainian commercial bank",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20.10"
+  },
+  "workspaces": [
+    "packages/core",
+    "packages/data",
+    "packages/modules",
+    "packages/cli",
+    "packages/web"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "clean": "tsc --build --clean",
+    "typecheck": "tsc --build --force",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint .",
+    "sim": "npm run build --silent && node packages/cli/dist/main.js",
+    "web": "npm run build --silent && vite --config packages/web/vite.config.ts",
+    "web:build": "npm run build --silent && vite build --config packages/web/vite.config.ts",
+    "web:smoke": "npm run web:build --silent && node packages/web/smoke.mjs dist-web dist-web/shots",
+    "web:bundle": "npm run web:build --silent && node packages/web/bundle.mjs dist-web dist-web/UABankSim.html"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.13.0",
+    "@types/node": "^22.8.0",
+    "eslint": "^9.13.0",
+    "playwright": "^1.49.0",
+    "typescript": "^5.9.2",
+    "typescript-eslint": "^8.11.0",
+    "vite": "^6.0.7",
+    "vitest": "^3.2.4"
+  }
+}
